@@ -9,18 +9,21 @@
 使用英伟达单卡4090，显存24G训练，python环境建议3.10。使用pip install -r requirements.txt安装第三方库。
 ### 项目目录
 ```
-your-repository-name/
-├── configs/
-├── dataset/
-├── medical_util/
-├── model/
-├── model_pth/
+project-root/
+├── configs/ 存放训练模型的配置文件
+├── dataset/ 
+├── figs/ 
+├── inputs/ 存放训练数据集
+├── medical_util/ 
+├── model/ 模型定义代码
+├── model_pth/ 预训练模型权重
+├── trained_model_path/ 我们训练的最优模型权重
 ├── util/
 ├── LICENSE
-├── README.md
+├── model.py 竞赛平台的推理代码
 ├── requirements.txt
-├── semi_supervised_unimatch.py
-└── supervised_train.py
+├── semi_supervised_unimatch.py 半监督训练代码
+└── supervised_train.py 全监督训练代码
 ```
 
 ### 数据集和预训练模型
