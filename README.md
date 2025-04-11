@@ -8,15 +8,16 @@
 ### 环境配置
 使用单卡4090训练，python环境建议3.10。使用pip install -r requirements.txt安装第三方库。
 
+
 ### 数据集和预训练模型
 1. 从此下载原训练集，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载数据，并存放到./input/train_50_pse_374_26目录下。22
 2. 我们使用的预训练模型 PVT_V2_b1 ResNet34d ResNet34 (模型预训练权重已经放在./model_pth)
 
 #### 训练模型
-1. semi_supervised_unimatch.py为半监督训练代码，supervised_train.py为全监督训练代码。
+1. **semi_supervised_unimatch.py**为半监督训练代码，**supervised_train.py**为全监督训练代码。
 2. 全监督训练: python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
-  --test_data_txt  ./inputs/train_50_pse_374_26/val_images40.txt --save_path your training save path 
-3. 半监督训练: python semi_supervised_unimatch.py  --config ./configs/pvt_fugc.yaml  --save_path your training save path  --train_unlabeled_path ./inputs/train/unlabeled_data \
+  --test_data_txt  ./inputs/train_50_pse_374_26/val_images40.txt --save_path **your training save path **
+3. 半监督训练: python semi_supervised_unimatch.py  --config ./configs/pvt_fugc.yaml  --save_path **your training save path ** --train_unlabeled_path ./inputs/train/unlabeled_data \
    --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
    ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt
 4. 我们最优训练权重：[半监督训练]()，[全监督训练]()
