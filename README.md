@@ -46,7 +46,7 @@ project-root/
 5. 我们最优训练权重：[半监督训练]()，[全监督训练]()
 
 ### 复现我们的结果
-#### (完整训练流程复现)
+#### (半监督训练)
 ##### 训练 PVT_v2_b1_UNet 模型
 
 ###### 步骤 1: 准备配置文件
@@ -66,5 +66,59 @@ python semi_supervised_unimatch.py \
   --train_labeled_txt_path ./inputs/train/train_labeled.txt \
   --test_labeled_path ./inputs/train/labeled_data \
   --test_labeled_txt_path ./inputs/train/test_labeled.txt
+```
 
 
+##### 训练 ResNet34_UNet 模型
+
+###### 步骤 1: 准备配置文件
+确保 `resnet_fugc.yaml` 文件中的配置如下：
+- `model_name` 设置为 `resnet34`
+- `pred_model_path` 设置为 `./model_path/resnet34_feature_only.pth`
+
+###### 步骤 2: 运行训练脚本
+使用以下命令启动训练过程：
+```bash
+python semi_supervised_unimatch.py \
+  --config ./configs/resnet34_fugc.yaml \
+  --save_path your_training_save_path \
+  --train_unlabeled_path ./inputs/train/unlabeled_data \
+  --train_labeled_path ./inputs/train/labeled_data \
+  --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt \
+  --train_labeled_txt_path ./inputs/train/train_labeled.txt \
+  --test_labeled_path ./inputs/train/labeled_data \
+  --test_labeled_txt_path ./inputs/train/test_labeled.txt
+```
+#### (全监督训练)
+##### 步骤 1: 下载我们提供的全监督训练数据集(50张带标注图像和我们手动筛选的高质量伪标签400张)，并将数据放在./inputs/train_50_pse_374_26目录下
+##### 步骤 2: 执行训练代码
+###### 训练 PVT_v2_b1_UNet 模型
+
+确保 `pvt_fugc.yaml` 文件中的配置如下：
+- `model_name` 设置为 `pvt_v2_b1`
+- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
+  
+使用以下命令启动训练过程：
+```bash
+python supervised_train.py \
+  --config ./configs/pvt_fugc.yaml \
+  --data_path ./inputs/train_50_pse_374_26 \
+  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
+  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
+  --save_path your_training_save_path
+```
+###### 训练 ResNet34d_UNet 模型
+
+确保 `resnet_fugc.yaml` 文件中的配置如下：
+- `model_name` 设置为 `resnet34d`
+- `pred_model_path` 设置为 `./model_path/resnet34d_feature_only.pth`
+  
+使用以下命令启动训练过程：
+```bash
+python supervised_train.py \
+  --config ./configs/resnet_fugc.yaml \
+  --data_path ./inputs/train_50_pse_374_26 \
+  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
+  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
+  --save_path your_training_save_path
+```
