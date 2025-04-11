@@ -3,7 +3,7 @@
 ## DL-ICG团队第7名解决方案 [比赛链接](https://www.codabench.org/competitions/4781/) [Github链接](https://github.com/maskoffs/Fetal-Ultrasound-Grand-Challenge)
 
 ### 解决方法概述
-我们首先采用 UniMatch 半监督学习方法，利用 10 张带标注图像作为验证集，并将 40 张已标注图像与 450 张未标注图像结合用于模型训练。随后，运用训练好的模型对未标注图像进行推理，生成伪标签，并通过手动筛选将部分高质量伪标签纳入训练集。接着，我们使用全监督方法对模型进行进一步训练。此过程将不断重复，直至积累足够数量的高质量伪标签。
+我们的方法分为两阶段。具体来说，第一阶段，我们首先采用 UniMatch 半监督学习方法，利用 10 张带标注图像作为验证集，并将 40 张已标注图像与 450 张未标注图像结合用于模型训练。随后，运用训练好的模型对未标注图像进行推理，生成伪标签，并通过手动筛选将部分高质量伪标签纳入训练集。第二阶段，我们使用全监督方法对模型进行进一步训练。此过程将不断重复，直至积累足够数量的高质量伪标签。
 
 ### 模型结果
 模型采用UNet结构。我们最终预测模型，是选择PVT_v2_b1和ResNet34d平均集成方法。测试分数如下：
@@ -33,14 +33,14 @@ project-root/
 ```
 
 ### 数据集和预训练模型
-1. 从此下载原训练集，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载数据，并存放到./input/train_50_pse_374_26目录下。22
+1. 从此下载原训练集，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载数据，并存放到./input/train_50_pse_374_26目录下。
 2. 我们使用的预训练模型 PVT_V2_b1 ResNet34d ResNet34 (模型预训练权重已经放在./model_pth)
 
 ### 训练模型
 1. **semi_supervised_unimatch.py**为半监督训练代码，**supervised_train.py**为全监督训练代码。
-2. 全监督训练: python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
+2. **全监督训练**: python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
   --test_data_txt  ./inputs/train_50_pse_374_26/val_images40.txt --save_path **your training save path**
-3. 半监督训练: python semi_supervised_unimatch.py  --config ./configs/pvt_fugc.yaml  --save_path **your training save path**  --train_unlabeled_path ./inputs/train/unlabeled_data \
+3. **半监督训练**: python semi_supervised_unimatch.py  --config ./configs/pvt_fugc.yaml  --save_path **your training save path**  --train_unlabeled_path ./inputs/train/unlabeled_data \
    --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
    ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt
 4. 我们最优训练权重：[半监督训练]()，[全监督训练]()
