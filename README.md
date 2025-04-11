@@ -4,11 +4,13 @@
 
 ### 解决方法概述
 我们首先采用 UniMatch 半监督学习方法，利用 10 张带标注图像作为验证集，并将 40 张已标注图像与 450 张未标注图像结合用于模型训练。随后，运用训练好的模型对未标注图像进行推理，生成伪标签，并通过手动筛选将部分高质量伪标签纳入训练集。接着，我们使用全监督方法对模型进行进一步训练。此过程将不断重复，直至积累足够数量的高质量伪标签。
-
-1. `cd <path/to/miccai2d_docker>`
-2. `docker pull pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime`
-3. `docker build -t miccaii2d .`
-4. `docker save -o miccaii2d.tar miccaii2d` 构建完成后会有一个miccaii2d.tar文件
+### 数据集和预训练模型
+从此下载原训练集，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载数据，并存放到./input/train_50_pse_374_26目录下
+1. 我们使用的预训练模型 PVT_V2_b1 ResNet34d ResNet34 (模型预训练权重已经放在./model_pth)
+2. 我们使用
+3. `docker pull pytorch/pytorch:1.12.1-cuda11.3-cudnn8-runtime`
+4. `docker build -t miccaii2d .`
+5. `docker save -o miccaii2d.tar miccaii2d` 构建完成后会有一个miccaii2d.tar文件
 
 ### Docker运行方法
 
