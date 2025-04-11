@@ -48,10 +48,9 @@ project-root/
 ### 复现我们的结果
 可以选择执行一遍我们的完整训练流程：
 1. 首先进行半监督训练得到PVT_v2_b1_UNet和ResNet34_UNet的训练权重:
-   训练PVT_v2_b1_UNet模型:  ```python semi_supervised_unimatch.py --config ./configs/pvt_fugc.yaml --save_path your training save path --train_unlabeled_path ./inputs/train/unlabeled_data \
-   --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
-   ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt``` 请确保pvt_fugc.yaml文件中的model_name为pvt_v2_b1 pred_model_path为 ./model_path/pvt_v2_b1_feature_only.pth
-   训练ResNet34_UNet模型: 只需要更改：--config ./configs/resnet_fugc.yaml 请确保pvt_fugc.yaml文件中的model_name为resnet34 pred_model_path为 ./model_path/resnet34_feature_only.pth
+   训练PVT_v2_b1_UNet模型: 确保 `pvt_fugc.yaml` 文件中的配置如下：
+- `model_name` 设置为 `pvt_v2_b1`
+- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
 
 ### 前言
 
