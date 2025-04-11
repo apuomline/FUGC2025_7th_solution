@@ -94,7 +94,8 @@ python semi_supervised_unimatch.py \
 ##### 步骤 2: 执行训练代码
 ###### 训练 PVT_v2_b1_UNet 模型
 
-确保 `pvt_fugc.yaml` 文件中的配置如下：
+确保 `pvt_fugc.yaml` 文件中的配置：
+- `epochs` 设置为 `150`
 - `model_name` 设置为 `pvt_v2_b1`
 - `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
   
@@ -109,7 +110,8 @@ python supervised_train.py \
 ```
 ###### 训练 ResNet34d_UNet 模型
 
-确保 `resnet_fugc.yaml` 文件中的配置如下：
+确保 `resnet_fugc.yaml` 文件中的配置：
+- `epochs` 设置为 `150`
 - `model_name` 设置为 `resnet34d`
 - `pred_model_path` 设置为 `./model_path/resnet34d_feature_only.pth`
   
@@ -124,7 +126,7 @@ python supervised_train.py \
 ```
 
 ##### 步骤 3: 执行竞赛平台预测代码
-将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。我们在./trained_model_path目录下提供了最终用于测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest
+将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。我们在./trained_model_path目录下提供了最终用于测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest.pth
 ```bash
 python model.py 
 ```
