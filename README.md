@@ -43,7 +43,6 @@ project-root/
 4. **半监督训练**: ```python semi_supervised_unimatch.py --config ./configs/pvt_fugc.yaml --save_path your training save path --train_unlabeled_path ./inputs/train/unlabeled_data \
    --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
    ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt ```
-5. 我们最优训练权重：[半监督训练]()，[全监督训练]()
 
 ### 复现我们的结果
 #### (半监督训练)
@@ -122,4 +121,10 @@ python supervised_train.py \
   --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
   --save_path your_training_save_path
+```
+
+##### 步骤 3: 执行竞赛平台预测代码
+将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加加载路径。我们在./trained_model_path目录下提供了最终用于测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest
+```bash
+python model.py 
 ```
