@@ -124,7 +124,7 @@ python supervised_train.py \
 ```
 
 ##### 步骤 3: 执行竞赛平台预测代码
-将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加加载路径。我们在./trained_model_path目录下提供了最终用于测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest
+将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。我们在./trained_model_path目录下提供了最终用于测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest
 ```bash
 python model.py 
 ```
