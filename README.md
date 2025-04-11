@@ -8,7 +8,30 @@
 1. 从此下载原训练集，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载数据，并存放到./input/train_50_pse_374_26目录下。22
 2. 我们使用的预训练模型 PVT_V2_b1 ResNet34d ResNet34 (模型预训练权重已经放在./model_pth)
 
-
+#### Project Directory Structure
+project-root/
+│
+├── configs/            # Configuration files for the project
+│
+├── dataset/            # Dataset files used for training and testing
+│
+├── medical_util/       # Utility functions related to medical processing
+│
+├── model/              # Model architecture and definition files
+│
+├── model_pth/          # Directory for model checkpoints and saved models
+│
+├── util/               # General utility scripts and functions
+│
+├── LICENSE             # License information for the project
+│
+├── README.md           # Markdown file providing an overview of the project
+│
+├── requirements.txt    # List of Python dependencies required by the project
+│
+├── semi_supervised_unimatch.py  # Script for semi-supervised learning using UniMatch
+│
+└── supervised_train.py     # Script for supervised training of the model
 ### Docker运行方法
 
 1. 解压miccaii2d_docker.zip文件到本地，若里面没有miccaii2d.tar镜像文件，请从上面的Docker链接中下载并保存到miccaii2d_docker文件中
