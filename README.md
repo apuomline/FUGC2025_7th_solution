@@ -46,14 +46,25 @@ project-root/
 5. 我们最优训练权重：[半监督训练]()，[全监督训练]()
 
 ### 复现我们的结果
-可以选择执行一遍我们的完整训练流程：
-1. 首先进行半监督训练得到PVT_v2_b1_UNet和ResNet34_UNet的训练权重:
-   训练PVT_v2_b1_UNet模型: 确保 `pvt_fugc.yaml` 文件中的配置如下：
+#### (完整训练流程复现)
+##### 训练 PVT_v2_b1_UNet 模型
+
+###### 步骤 1: 准备配置文件
+确保 `pvt_fugc.yaml` 文件中的配置如下：
 - `model_name` 设置为 `pvt_v2_b1`
 - `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
 
-### 前言
+###### 步骤 2: 运行训练脚本
+使用以下命令启动训练过程：
+```bash
+python semi_supervised_unimatch.py \
+  --config ./configs/pvt_fugc.yaml \
+  --save_path your_training_save_path \
+  --train_unlabeled_path ./inputs/train/unlabeled_data \
+  --train_labeled_path ./inputs/train/labeled_data \
+  --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt \
+  --train_labeled_txt_path ./inputs/train/train_labeled.txt \
+  --test_labeled_path ./inputs/train/labeled_data \
+  --test_labeled_txt_path ./inputs/train/test_labeled.txt
 
-主要用的是`segmentation-models-pytorch`这一个语义分割库，这个库对新手非常友好，内置了许多主流的Backbone和SegHead。其实目前工业界主流的还是用`mmsegmentation`，这个库基于`mmcv`构建，模型更加全面，但是这个库的AIP接口太高级了，改动起来有点麻烦，对于新手不是很友好。
 
-### 初赛模型
