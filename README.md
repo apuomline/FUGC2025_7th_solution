@@ -45,6 +45,49 @@ project-root/
    ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt ```
 
 ### 复现我们的结果
+
+#### (全监督训练)
+##### 步骤 1: 下载我们提供的全监督训练数据集(50张带标注图像和我们手动筛选的高质量伪标签400张)，并将数据放在./inputs/train_50_pse_374_26目录下
+##### 步骤 2: 执行训练代码
+###### 训练 PVT_v2_b1_UNet 模型
+
+确保 `pvt_fugc.yaml` 文件中的配置：
+- `epochs` 设置为 `150`
+- `model_name` 设置为 `pvt_v2_b1`
+- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
+  
+使用以下命令启动训练过程：
+```bash
+python supervised_train.py \
+  --config ./configs/pvt_fugc.yaml \
+  --data_path ./inputs/train_50_pse_374_26 \
+  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
+  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
+  --save_path your_training_save_path
+```
+###### 训练 ResNet34d_UNet 模型
+
+确保 `resnet_fugc.yaml` 文件中的配置：
+- `epochs` 设置为 `150`
+- `model_name` 设置为 `resnet34d`
+- `pred_model_path` 设置为 `./model_path/resnet34d_feature_only.pth`
+  
+使用以下命令启动训练过程：
+```bash
+python supervised_train.py \
+  --config ./configs/resnet_fugc.yaml \
+  --data_path ./inputs/train_50_pse_374_26 \
+  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
+  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
+  --save_path your_training_save_path
+```
+
+##### 步骤 3: 执行竞赛平台预测代码
+将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。也可以直接使用我们在./trained_model_path目录下提供的用于最终测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest.pth
+```bash
+python model.py 
+```
+
 #### (半监督训练)
 注意：由于我们在训练过程中，忘记固定随机种子。因此，执行半监督训练出来的最优模型其对应的最优epochs可能不同。在我们训练中，PVT_v2_b1_UNet最好的epoch是20，而ResNet34_UNet最好的epoch是60。因此，我们建议直接使用我们已经训练过的权重[半监督训练]()。但是，这只是半监督训练过程得到的权重，还需要将PVT_v2_b1_UNet和ResNet34_UNet进行平均集成，然后去推理伪标签。还必须保证选取伪标签与我们的一致。所以，我们建议使用我们筛选出来的伪标签进行全监督训练。[全监督训练数据]()
 ##### 训练 PVT_v2_b1_UNet 模型
@@ -89,44 +132,4 @@ python semi_supervised_unimatch.py \
   --test_labeled_path ./inputs/train/labeled_data \
   --test_labeled_txt_path ./inputs/train/test_labeled.txt
 ```
-#### (全监督训练)
-##### 步骤 1: 下载我们提供的全监督训练数据集(50张带标注图像和我们手动筛选的高质量伪标签400张)，并将数据放在./inputs/train_50_pse_374_26目录下
-##### 步骤 2: 执行训练代码
-###### 训练 PVT_v2_b1_UNet 模型
 
-确保 `pvt_fugc.yaml` 文件中的配置：
-- `epochs` 设置为 `150`
-- `model_name` 设置为 `pvt_v2_b1`
-- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
-  
-使用以下命令启动训练过程：
-```bash
-python supervised_train.py \
-  --config ./configs/pvt_fugc.yaml \
-  --data_path ./inputs/train_50_pse_374_26 \
-  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
-  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
-  --save_path your_training_save_path
-```
-###### 训练 ResNet34d_UNet 模型
-
-确保 `resnet_fugc.yaml` 文件中的配置：
-- `epochs` 设置为 `150`
-- `model_name` 设置为 `resnet34d`
-- `pred_model_path` 设置为 `./model_path/resnet34d_feature_only.pth`
-  
-使用以下命令启动训练过程：
-```bash
-python supervised_train.py \
-  --config ./configs/resnet_fugc.yaml \
-  --data_path ./inputs/train_50_pse_374_26 \
-  --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
-  --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
-  --save_path your_training_save_path
-```
-
-##### 步骤 3: 执行竞赛平台预测代码
-将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。也可以直接使用我们在./trained_model_path目录下提供的用于最终测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest.pth
-```bash
-python model.py 
-```
