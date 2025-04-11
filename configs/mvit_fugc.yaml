@@ -1,0 +1,16 @@
+# arguments for dataset
+dataset: fugc
+nclass: 3
+img_h: 320   ###mit_bx 模型不支持原图像尺寸
+img_w: 544
+epochs: 150
+batch_size: 4 # per GPU x 1 GPU
+lr: 0.01      
+conf_thresh: 0.95
+optimizer: AdamW 
+model_name: smp_mit_b1
+encoder_name: mit_b1
+pred_model_path: None
+encoder_weights: 'imagenet'
+classes: ['anterior_lip','posterior_lip','backgroud']
+# activation: 'sigmoid'

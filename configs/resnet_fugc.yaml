@@ -1,0 +1,12 @@
+dataset: fugc
+nclass: 3
+img_h: 336  
+img_w: 544
+epochs: 50
+batch_size: 4 
+lr: 0.01      
+conf_thresh: 0.95
+optimizer: AdamW 
+model_name:  resnet34
+encoder_name: None
+pred_model_path: more-scenarios/medical/model_pth/resnet34_feature_only.pth
