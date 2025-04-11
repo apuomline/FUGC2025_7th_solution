@@ -31,11 +31,6 @@ project-root/
 ├── semi_supervised_unimatch.py 半监督训练代码
 └── supervised_train.py 全监督训练代码
 ```
-
-### 数据集和预训练模型
-1. 从此下载[原训练集]()，并放到./inputs/train目录下，用于进行半监督训练。我们提供了第二阶段全监督训练时所使用到的数据集(包含伪标签)。从此处下载[全监督训练数据]()，并存放到./input/train_50_pse_374_26目录下。
-2. 我们使用的预训练模型 PVT_V2_b1 ResNet34d ResNet34 (模型预训练权重已经放在./model_pth)
-
 ### 训练模型
 1. **semi_supervised_unimatch.py**为半监督训练代码，**supervised_train.py**为全监督训练代码。
 2. **全监督训练**:
