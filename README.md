@@ -11,7 +11,7 @@ The model utilizes a UNet architecture. Our final prediction model employs an av
 |------|------|------|------|
 | PVT_v2_b1 + ResNet34d | 0.8518 | 58.8085  |349.5664 |
 
-### 环境配置
+### Environment Setup
 Train using a single NVIDIA 4090 card with 24GB of video memory, and it is recommended to use Python environment version 3.10. Install third-party libraries with `pip install -r requirements.txt`.
 To create a virtual environment and install third-party libraries, navigate to the `apufugc2025` directory and execute the following commands:
  ```bash
@@ -20,27 +20,27 @@ conda activate uni
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118  
 pip install -r requirements.txt
 ```
-### 项目目录
+### Project Directory
 ```
 project-root/
-├── configs/ 存放训练模型的配置文件
-├── dataset/ 
-├── figs/ 
-├── inputs/ 存放训练数据集
-├── medical_util/ 
-├── model/ 模型定义代码
-├── model_pth/ 预训练模型权重
-├── trained_model_path/ 我们训练的最优模型权重
-├── util/
-├── LICENSE
-├── model.py 竞赛平台的推理代码
-├── requirements.txt
-├── semi_supervised_unimatch.py 半监督训练代码
-└── supervised_train.py 全监督训练代码
+├── configs/        Store model training configuration files
+├── dataset/        The dataset directory
+├── figs/           Figures directory
+├── inputs/         Store training dataset
+├── medical_util/   Medical utility functions
+├── model/          Model definition code
+├── model_pth/      Pre-trained model weights
+├── trained_model_path/  Our best trained model weights
+├── util/           Utility functions
+├── LICENSE         License file
+├── model.py        Inference code for the competition platform
+├── requirements.txt  List of third-party libraries to install
+├── semi_supervised_unimatch.py  Semi-supervised training code
+└── supervised_train.py  Fully supervised training code
 ```
-### 训练模型
-1. **semi_supervised_unimatch.py**为半监督训练代码，**supervised_train.py**为全监督训练代码。
-2. **全监督训练**:
+### Model Training
+1. **semi_supervised_unimatch.py** is the semi-supervised training script, and **supervised_train.py** is the fully supervised training script.
+2. **Fully Supervised Training**:
  ```bash
    python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt --save_path your training save path
