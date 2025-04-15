@@ -9,4 +9,4 @@ conf_thresh: 0.95
 optimizer: AdamW 
 model_name:  resnet34
 encoder_name: None
-pred_model_path: more-scenarios/medical/model_pth/resnet34_feature_only.pth
+pred_model_path: ./model_pth/resnet34_feature_only.pth
