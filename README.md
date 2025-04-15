@@ -75,14 +75,14 @@ python supervised_train.py \
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt \
   --save_path your_training_save_path
 ```
-###### 训练 ResNet34d_UNet 模型
+###### Train the ResNet34d_UNet Model
 
-确保 `resnet_fugc.yaml` 文件中的配置：
-- `epochs` 设置为 `150`
-- `model_name` 设置为 `resnet34d`
-- `pred_model_path` 设置为 `./model_path/resnet34d_feature_only.pth`
-  
-使用以下命令启动训练过程：
+Ensure that the `resnet_fugc.yaml` file is configured with:
+- `epochs` set to `150`
+- `model_name` set to `resnet34d`
+- `pred_model_path` set to `./model_path/resnet34d_feature_only.pth`
+
+Start the training process using the following command:
 ```bash
 python supervised_train.py \
   --config ./configs/resnet_fugc.yaml \
@@ -92,23 +92,24 @@ python supervised_train.py \
   --save_path your_training_save_path
 ```
 
-##### 步骤 3: 执行竞赛平台预测代码
-将全监督训练得到的权重放到./trained_model_path路径下，并更改model.py文件中的权重加载路径。也可以直接使用我们在./trained_model_path目录下提供的用于最终测试的模型权重。即pvt_b1_latest.pth 和 resnet34d_latest.pth
+##### Step 3: Run the Competition Platform Prediction Code
+Place the weights obtained from fully supervised training into the `./trained_model_path` directory, and modify the weight loading path in the `model.py` file. Alternatively, you can directly use the model weights provided in the `./trained_model_path` directory for the final test, which are `pvt_b1_latest.pth` and `resnet34d_latest.pth`.
 ```bash
 python model.py 
 ```
 
-#### (半监督训练)
-尽管我们最终方案是使用伪标签进行全监督训练，我们在这里提供半监督的训练流程。注意：由于我们在训练过程中，忘记固定随机种子。因此，执行半监督训练出来的最优模型其对应的最优epochs可能不同。在我们训练中，PVT_v2_b1_UNet最好的epoch是20，而ResNet34_UNet最好的epoch是60。因此，我们建议直接使用我们已经训练过的权重。存放路径为 ./trained_model_pth/pvt_b1_ori_imgsize_epoch_20.pth 和 ./trained_model_pth/resnet34_ori_imgsize_epoch_60.pth。但是，这只是半监督训练过程得到的权重，还需要将PVT_v2_b1_UNet和ResNet34_UNet进行平均加权融合，然后去推理伪标签。还必须保证选取伪标签与我们的一致。所以，我们建议使用我们筛选出来的伪标签进行全监督训练。
-##### 训练 PVT_v2_b1_UNet 模型
+#### (Semi-Supervised Training)
+Although our final solution involves using pseudo labels for fully supervised training, we provide here the semi-supervised training process. Note: Since we forgot to fix the random seed during the training process, the optimal number of epochs for the best model obtained from semi-supervised training may differ. In our training, the best epoch for PVT_v2_b1_UNet was 20, and for ResNet34_UNet it was 60. Therefore, we recommend directly using the weights we have already trained. The storage paths are `./trained_model_pth/pvt_b1_ori_imgsize_epoch_20.pth` and `./trained_model_pth/resnet34_ori_imgsize_epoch_60.pth`. However, these are only the weights obtained from the semi-supervised training process and still require averaging and fusing the weights of PVT_v2_b1_UNet and ResNet34_UNet, followed by inferring pseudo labels. It is also necessary to ensure that the selection of pseudo labels is consistent with ours. Therefore, we recommend using the pseudo labels we have filtered for fully supervised training.
 
-###### 步骤 1: 准备配置文件
-确保 `pvt_fugc.yaml` 文件中的配置如下：
-- `model_name` 设置为 `pvt_v2_b1`
-- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
+##### Train the PVT_v2_b1_UNet Model
 
-###### 步骤 2: 运行训练脚本
-使用以下命令启动训练过程：
+###### Step 1: Prepare the Configuration File
+Ensure that the `pvt_fugc.yaml` file is configured as follows:
+- `model_name` set to `pvt_v2_b1`
+- `pred_model_path` set to `./model_path/pvt_v2_b1_feature_only.pth`
+
+###### Step 2: Run the Training Script
+Start the training process with the following command:
 ```bash
 python semi_supervised_unimatch.py \
   --config ./configs/pvt_fugc.yaml \
@@ -122,15 +123,15 @@ python semi_supervised_unimatch.py \
 ```
 
 
-##### 训练 ResNet34_UNet 模型
+##### Train the ResNet34_UNet Model
 
-###### 步骤 1: 准备配置文件
-确保 `resnet_fugc.yaml` 文件中的配置如下：
-- `model_name` 设置为 `resnet34`
-- `pred_model_path` 设置为 `./model_path/resnet34_feature_only.pth`
+###### Step 1: Prepare the Configuration File
+Make sure the `resnet_fugc.yaml` file is configured as follows:
+- `model_name` is set to `resnet34`
+- `pred_model_path` is set to `./model_path/resnet34_feature_only.pth`
 
-###### 步骤 2: 运行训练脚本
-使用以下命令启动训练过程：
+###### Step 2: Run the Training Script
+Start the training process using the following command:
 ```bash
 python semi_supervised_unimatch.py \
   --config ./configs/resnet_fugc.yaml \
