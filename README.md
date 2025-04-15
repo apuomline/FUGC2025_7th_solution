@@ -12,8 +12,8 @@ The model utilizes a UNet architecture. Our final prediction model employs an av
 | PVT_v2_b1 + ResNet34d | 0.8518 | 58.8085  |349.5664 |
 
 ### 环境配置
-使用英伟达单卡4090，显存24G训练，python环境建议3.10。使用pip install -r requirements.txt安装第三方库。
-进入apufugc2025目录下执行以下命令创建虚拟环境以安装及第三方库
+Train using a single NVIDIA 4090 card with 24GB of video memory, and it is recommended to use Python environment version 3.10. Install third-party libraries with `pip install -r requirements.txt`.
+To create a virtual environment and install third-party libraries, navigate to the `apufugc2025` directory and execute the following commands:
  ```bash
 conda create -n uni python=3.10
 conda activate uni
