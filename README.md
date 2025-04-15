@@ -1,12 +1,12 @@
 # Fetal Ultrasound Grand Challenge: Semi-Supervised Cervical Segmentation 
 
-## DL-ICG团队第7名解决方案 [比赛链接](https://www.codabench.org/competitions/4781/) [Github链接](https://github.com/maskoffs/Fetal-Ultrasound-Grand-Challenge)
+## The DL-ICG team's 7th place solution [Competition Link](https://www.codabench.org/competitions/4781/) [Github Link](https://github.com/maskoffs/Fetal-Ultrasound-Grand-Challenge)
 
-### 解决方法概述
-我们的方法分为两阶段。具体来说，第一阶段，我们首先采用 UniMatch 半监督学习方法，利用 10 张带标注图像作为验证集，并将 40 张已标注图像与 450 张未标注图像结合用于模型训练。随后，运用训练好的模型对未标注图像进行推理，生成伪标签，并通过手动筛选将部分高质量伪标签纳入训练集。第二阶段，我们使用全监督方法对模型进行进一步训练。此过程将不断重复，直至积累足够数量的高质量伪标签。
+### Solution Overview
+Our approach is divided into two stages. Specifically, in the first stage, we initially employ the UniMatch semi-supervised learning method, utilizing 10 labeled images as a validation set, and combining 40 labeled images with 450 unlabeled images for model training. Subsequently, we use the trained model to infer the unlabeled images, generate pseudo-labels, and manually select some high-quality pseudo-labels to include in the training set. In the second stage, we further train the model using a fully supervised approach. This process will be continuously repeated until a sufficient number of high-quality pseudo-labels have been accumulated.
 
-### 模型结果
-模型采用UNet结构。我们最终预测模型，是选择PVT_v2_b1和ResNet34d平均集成方法。测试分数如下：
+### Model Results
+The model utilizes a UNet architecture. Our final prediction model employs an averaging ensemble method between PVT_v2_b1 and ResNet34d. The test scores are as follows:：
 | model_name  |  Dice  | hd95  | time  |
 |------|------|------|------|
 | PVT_v2_b1 + ResNet34d | 0.8518 | 58.8085  |349.5664 |
