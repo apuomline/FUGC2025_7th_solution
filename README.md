@@ -132,7 +132,7 @@ python semi_supervised_unimatch.py \
 使用以下命令启动训练过程：
 ```bash
 python semi_supervised_unimatch.py \
-  --config ./configs/resnet34_fugc.yaml \
+  --config ./configs/resnet_fugc.yaml \
   --save_path your_training_save_path \
   --train_unlabeled_path ./inputs/train/unlabeled_data \
   --train_labeled_path ./inputs/train/labeled_data \
