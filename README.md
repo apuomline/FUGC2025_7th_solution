@@ -46,26 +46,27 @@ project-root/
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt --save_path your training save path
 ```
 
-4. **半监督训练**:
+4. **Semi-Supervised Training**:
  ```bash
 python semi_supervised_unimatch.py --config ./configs/pvt_fugc.yaml --save_path your training save path --train_unlabeled_path ./inputs/train/unlabeled_data \
    --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
    ./inputs/train/labeled_data --test_labeled_txt_path ./inputs/train/test_labeled.txt
 ```
 
-### 复现我们的结果
-注意：由于我们在训练过程中，忘记固定随机种子。因此，复现结果可能会有偏差，但是应该不大。
-#### (全监督训练)
-##### 步骤 1: 确保使用我们提供的全监督训练数据集(50张带标注图像和我们手动筛选的400张高质量伪标签)，数据存放在./inputs/train_50_pse_374_26目录下
-##### 步骤 2: 执行训练代码
-###### 训练 PVT_v2_b1_UNet 模型
+### Replicate Our Results
+Note: Due to forgetting to fix the random seed during our training process, there may be some deviation when replicating the results, but it should not be significant.
+#### (Fully Supervised Training)
+##### Step 1: Ensure you use the fully supervised training dataset we provided (50 labeled images and the 400 high-quality pseudo labels we manually selected), which are stored in the `./inputs/train_50_pse_374_26` directory.
+##### Step 2: Execute the training code
+###### Train the PVT_v2_b1_UNet model
 
-确保 `pvt_fugc.yaml` 文件中的配置：
-- `epochs` 设置为 `150`
-- `model_name` 设置为 `pvt_v2_b1`
-- `pred_model_path` 设置为 `./model_path/pvt_v2_b1_feature_only.pth`
-  
-使用以下命令启动训练过程：
+Make sure the `pvt_fugc.yaml` file is configured with:
+- `epochs` set to `150`
+- `model_name` set to `pvt_v2_b1`
+- `pred_model_path` set to `./model_path/pvt_v2_b1_feature_only.pth`
+
+Start the training process with the following command:
+
 ```bash
 python supervised_train.py \
   --config ./configs/pvt_fugc.yaml \
