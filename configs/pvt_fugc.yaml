@@ -9,4 +9,4 @@ conf_thresh: 0.95
 optimizer: AdamW 
 model_name:  pvt_v2_b1
 encoder_name: None
-pred_model_path: ./more-scenarios/medical/model_pth/pvt_v2_b1_feature_only.pth
+pred_model_path: ./model_pth/pvt_v2_b1_feature_only.pth
