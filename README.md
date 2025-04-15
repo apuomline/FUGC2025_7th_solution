@@ -42,7 +42,7 @@ project-root/
 1. **semi_supervised_unimatch.py**为半监督训练代码，**supervised_train.py**为全监督训练代码。
 2. **全监督训练**:
  ```bash
-   python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt 
+   python supervised_train.py --config ./configs/pvt_fugc.yaml --data_path ./inputs/train_50_pse_374_26 --train_data_txt ./inputs/train_50_pse_374_26/train_images410.txt \
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt --save_path your training save path
 ```
 
