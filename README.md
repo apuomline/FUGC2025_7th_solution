@@ -46,7 +46,7 @@ project-root/
   --test_data_txt ./inputs/train_50_pse_374_26/val_images40.txt --save_path your training save path
 ```
 
-4. **Semi-Supervised Training**:
+3. **Semi-Supervised Training**:
  ```bash
 python semi_supervised_unimatch.py --config ./configs/pvt_fugc.yaml --save_path your training save path --train_unlabeled_path ./inputs/train/unlabeled_data \
    --train_labeled_path ./inputs/train/labeled_data --train_unlabeled_txt_path ./inputs/train/train_unlabeled.txt --train_labeled_txt_path ./inputs/train/train_labeled.txt --test_labeled_path \
