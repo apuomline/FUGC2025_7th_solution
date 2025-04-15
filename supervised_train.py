@@ -28,7 +28,7 @@ parser = argparse.ArgumentParser(description='Revisiting Weak-to-Strong Consiste
 
 parser.add_argument('--config', default='/mnt/workspace/UniMatch/more-scenarios/medical/configs/resnet_fugc.yaml', type=str)
 
-parser.add_argument('-data_path', default='/mnt/workspace/UniMatch/more-scenarios/medical/inputs/train_50_pse_374_26',type=str )
+parser.add_argument('--data_path', default='/mnt/workspace/UniMatch/more-scenarios/medical/inputs/train_50_pse_374_26',type=str )
 parser.add_argument('--train_data_txt', default='/mnt/workspace/UniMatch/more-scenarios/medical/inputs/train_50_pse_374_26/train_images410.txt',type=str )
 parser.add_argument('--test_data_txt', default='/mnt/workspace/UniMatch/more-scenarios/medical/inputs/train_50_pse_374_26/val_images40.txt',type=str )
 
