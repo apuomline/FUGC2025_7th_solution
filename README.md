@@ -13,6 +13,12 @@
 
 ### 环境配置
 使用英伟达单卡4090，显存24G训练，python环境建议3.10。使用pip install -r requirements.txt安装第三方库。
+使用以下命令创建虚拟环境以及第三方库
+ ```bash
+conda create -n uni python=3.10
+conda activate uni
+pip install -r requirements.txt
+```
 ### 项目目录
 ```
 project-root/
